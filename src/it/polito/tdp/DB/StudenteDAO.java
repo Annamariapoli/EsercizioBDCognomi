@@ -16,7 +16,7 @@ public class StudenteDAO {
 	
 	public List<Studente> cercaStudenti(String iniziali){
 		Connection conn = DBConn.getConnection();
-		String query= "select * form studente where cognome like ?";
+		String query= "select * form studente where cognome like ?;";
 		List<Studente> listaStudentiTrovati = new LinkedList<Studente>();
 		try{
 			PreparedStatement st = conn.prepareStatement(query);
@@ -39,7 +39,7 @@ public class StudenteDAO {
 	
 	public List<Corso> listaCorsiDelloStudente(Studente studente){
 		Connection conn = DBConn.getConnection();
-		String query = " select corso.codins, crediti,nome, pd from iscrizione, corso where Iscrizione.codins= corso.codins and iscrizione.matricola=?";
+		String query = " select corso.codins, crediti,nome, pd from iscrizione, corso where Iscrizione.codins= corso.codins and iscrizione.matricola=?;";
 	    List<Corso> corsiDelloStudente = new LinkedList<Corso>();
 	    try{
 	    	PreparedStatement st = conn.prepareStatement(query);
