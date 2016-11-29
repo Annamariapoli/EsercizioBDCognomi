@@ -4,23 +4,25 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class DBConn {
-
-	static private final String jdbcUrl = "jdbc:mysql://localhost/iscritticorsi?user=root&password";
-	static private Connection connection = null;
-	
-	public static Connection getConnection(){
-		try{
-			if(connection == null){
-				connection = DriverManager.getConnection(jdbcUrl);
-			}
-			return connection;
-		} catch (SQLException e){
-			e.printStackTrace();
-			throw new RuntimeException("Errore nel db", e);
-		}
-		
-		
+ public class DBConn {
+    	
+   private final static String jdbcURL = "jdbc:mysql://localhost/iscritticorsi?user=root&password= ; " ;
+		  
+   public static Connection getConnection() {
+	try {
+		Class.forName("com.mysql.jdbc.Driver") ;
+	} catch (ClassNotFoundException e) {
+		e.printStackTrace();
+		throw new RuntimeException("Driver JDBC non trovato", e) ; 
 	}
+	Connection c;
+	try {
+		c = DriverManager.getConnection(jdbcURL);
+	} catch (SQLException e) {
+		e.printStackTrace();
+		throw new RuntimeException("Impossibile connettersi al database", e) ; 
+	}	
+	return c ;
 	
+    }
 }

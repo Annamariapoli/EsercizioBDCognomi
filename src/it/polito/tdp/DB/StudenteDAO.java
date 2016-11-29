@@ -12,15 +12,15 @@ import it.polito.tdp.bean.Studente;
 
 public class StudenteDAO {
 	
-	//utente inserisce iniziali, ritorno la lista di studenti trovati 
+//utente inserisce iniziali, ritorno la lista di studenti trovati 
 	
 	public List<Studente> cercaStudenti(String iniziali){
 		Connection conn = DBConn.getConnection();
-		String query= "select * form studente where cognome like ?;";
+		String query= "SELECT * FROM studente WHERE cognome like ?;";
 		List<Studente> listaStudentiTrovati = new LinkedList<Studente>();
 		try{
 			PreparedStatement st = conn.prepareStatement(query);
-			ResultSet rs = st.executeQuery();
+		    ResultSet rs = st.executeQuery();
 			st.setString(1,  iniziali + "%");
 			while(rs.next()){
 				Studente stu = new Studente(rs.getInt("matricola"), rs.getString("cognome"),rs.getString("nome"), rs.getString("cds"));
@@ -29,7 +29,7 @@ public class StudenteDAO {
 			conn.close();
 			return listaStudentiTrovati;
 					
-		} catch (SQLException e ){
+	} catch (SQLException e ){
 			e.printStackTrace();
 			throw new RuntimeException("Errore nel db", e);
 		}
@@ -39,7 +39,7 @@ public class StudenteDAO {
 	
 	public List<Corso> listaCorsiDelloStudente(Studente studente){
 		Connection conn = DBConn.getConnection();
-		String query = " select corso.codins, crediti,nome, pd from iscrizione, corso where Iscrizione.codins= corso.codins and iscrizione.matricola=?;";
+		String query = " SELECT corso.codins, crediti,nome, pd FROM iscrizione, corso WHERE Iscrizione.codins= corso.codins and iscrizione.matricola=?;";
 	    List<Corso> corsiDelloStudente = new LinkedList<Corso>();
 	    try{
 	    	PreparedStatement st = conn.prepareStatement(query);

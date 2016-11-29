@@ -18,7 +18,6 @@ public class EsercizioController {
 	
 	public void setModel(Model model){
 		this.model = model;
-		
 	}
 
     @FXML
@@ -64,7 +63,7 @@ public class EsercizioController {
     void doElencoCorsi(ActionEvent event) {                                            //ha gia selezionato lo studente 
     	Studente studente = combo.getValue();
     	List<Corso> listaCorsiDelloStudente = model.elenco(studente);
-    	txtResult.setText(listaCorsiDelloStudente.toString());
+   	    txtResult.setText(listaCorsiDelloStudente.toString());
     
     }
 

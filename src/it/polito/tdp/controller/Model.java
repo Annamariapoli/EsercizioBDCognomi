@@ -15,7 +15,6 @@ public class Model {                  //deve sempre e solo richiamare metodi del
 		return stuDao.cercaStudenti(iniziali);
 	}
 
-	
 	public List<Corso> elenco(Studente studente){
 		return stuDao.listaCorsiDelloStudente(studente);
 	}
