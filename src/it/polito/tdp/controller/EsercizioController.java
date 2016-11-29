@@ -18,6 +18,7 @@ public class EsercizioController {
 	
 	public void setModel(Model model){
 		this.model = model;
+		
 	}
 
     @FXML
@@ -43,8 +44,8 @@ public class EsercizioController {
 
     @FXML
     void doCerca(ActionEvent event) {
+    	combo.getItems().clear();                                //x pulire la combo
     	txtResult.clear();
-    	//combo.getValue().equals(null);  --> per pulire la combo?
     	String lettereIniziali = txtCognome.getText();
     	if(lettereIniziali.isEmpty()){
     		return;
@@ -55,15 +56,15 @@ public class EsercizioController {
     		}
     	}
     	List<Studente> studentiTrovati= model.cerca(lettereIniziali);
-    	//visualizzare gli studenti trovati nella combo
-    	combo.getItems().addAll(studentiTrovati);
+    	combo.getItems().addAll(studentiTrovati);    //visualizzare gli studenti trovati nella combo//visualizzare gli studenti trovati nella combo
     	
     }
 
     @FXML
-    void doElencoCorsi(ActionEvent event) {        //ha gia selezionato lo studente 
-    	//prendo lo studedente che l'utente ha sele<zionato dalla combo
+    void doElencoCorsi(ActionEvent event) {                                            //ha gia selezionato lo studente 
+    	Studente studente = combo.getValue();
     	List<Corso> listaCorsiDelloStudente = model.elenco(studente);
+    	txtResult.setText(listaCorsiDelloStudente.toString());
     
     }
 

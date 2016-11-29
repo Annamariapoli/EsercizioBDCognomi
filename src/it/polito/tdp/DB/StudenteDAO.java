@@ -22,7 +22,7 @@ public class StudenteDAO {
 			PreparedStatement st = conn.prepareStatement(query);
 			ResultSet rs = st.executeQuery();
 			st.setString(1,  iniziali + "%");
-			if(rs.next()){
+			while(rs.next()){
 				Studente stu = new Studente(rs.getInt("matricola"), rs.getString("cognome"),rs.getString("nome"), rs.getString("cds"));
 			    listaStudentiTrovati.add(stu);
 			}
@@ -44,7 +44,7 @@ public class StudenteDAO {
 	    try{
 	    	PreparedStatement st = conn.prepareStatement(query);
 	    	ResultSet rs = st.executeQuery();
-	    	st.setString(1, studente.getCognome());
+	    	st.setInt(1, studente.getMatricola());
 	    		if(rs.next()){
 	    			Corso c = new Corso(rs.getString("codins"), rs.getInt("crediti"), rs.getString("nome"), rs.getInt("pd"));
 	    			corsiDelloStudente.add(c);
