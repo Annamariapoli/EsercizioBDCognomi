@@ -16,7 +16,7 @@ public class StudenteDAO {
 	
 	public List<Studente> cercaStudenti(String iniziali){
 		Connection conn = DBConn.getConnection();
-		String query= "SELECT * FROM studente WHERE cognome like ?;";
+		String query= "SELECT * FROM studente WHERE cognome like= ?;";
 		List<Studente> listaStudentiTrovati = new LinkedList<Studente>();
 		try{
 			PreparedStatement st = conn.prepareStatement(query);
