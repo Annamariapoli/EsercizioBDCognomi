@@ -45,7 +45,7 @@ public class StudenteDAO {
 	    	PreparedStatement st = conn.prepareStatement(query);
 	    	ResultSet rs = st.executeQuery();
 	    	st.setInt(1, studente.getMatricola());
-	    		if(rs.next()){
+	    		while(rs.next()){
 	    			Corso c = new Corso(rs.getString("codins"), rs.getInt("crediti"), rs.getString("nome"), rs.getInt("pd"));
 	    			corsiDelloStudente.add(c);
 	    		}
