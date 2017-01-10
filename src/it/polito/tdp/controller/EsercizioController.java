@@ -33,7 +33,7 @@ public class EsercizioController {
     private Button btnCerca;
 
     @FXML
-    private ComboBox<Studente> combo;           //cognomi --> studente
+    private ComboBox<Studente> combo;          
 
     @FXML
     private Button btnElencoCorsi;
@@ -43,19 +43,13 @@ public class EsercizioController {
 
     @FXML
     void doCerca(ActionEvent event) {
-    	combo.getItems().clear();                                //x pulire la combo
     	txtResult.clear();
     	String lettereIniziali = txtCognome.getText();
-    	if(lettereIniziali.isEmpty()){
+    	if(lettereIniziali==null){
+    		txtResult.appendText("Scrivi delle iniziali!\n");
     		return;
     	}
-    	for(int i = 0; i<lettereIniziali.length(); i++){
-    		if(!Character.isLetter(lettereIniziali.charAt(i))){
-    			return;
-    		}
-    	}
-    	List<Studente> studentiTrovati= model.cerca(lettereIniziali);
-    	combo.getItems().addAll(studentiTrovati);    //visualizzare gli studenti trovati nella combo//visualizzare gli studenti trovati nella combo
+    	combo.getItems().addAll(model.cerca(lettereIniziali));
     	
     }
 

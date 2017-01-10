@@ -16,17 +16,18 @@ public class StudenteDAO {
 	
 	public List<Studente> cercaStudenti(String iniziali){
 		Connection conn = DBConn.getConnection();
-		String query= "SELECT * FROM studente WHERE cognome like= ?;";
+		String query= "SELECT * FROM studente WHERE cognome like ?";
 		List<Studente> listaStudentiTrovati = new LinkedList<Studente>();
 		try{
 			PreparedStatement st = conn.prepareStatement(query);
+			st.setString(1,  iniziali+"%");
 		    ResultSet rs = st.executeQuery();
-			st.setString(1,  iniziali + "%");
 			while(rs.next()){
 				Studente stu = new Studente(rs.getInt("matricola"), rs.getString("cognome"),rs.getString("nome"), rs.getString("cds"));
 			    listaStudentiTrovati.add(stu);
 			}
 			conn.close();
+			//System.out.println(listaStudentiTrovati);
 			return listaStudentiTrovati;
 					
 	} catch (SQLException e ){
@@ -39,12 +40,14 @@ public class StudenteDAO {
 	
 	public List<Corso> listaCorsiDelloStudente(Studente studente){
 		Connection conn = DBConn.getConnection();
-		String query = " SELECT corso.codins, crediti,nome, pd FROM iscrizione, corso WHERE Iscrizione.codins= corso.codins and iscrizione.matricola=?;";
+		String query = "select c.codins, c.crediti, c.nome, c.pd  "
+				+ "from iscrizione i, corso c  "
+				+ "where i.matricola=? and i.codins=c.codins";
 	    List<Corso> corsiDelloStudente = new LinkedList<Corso>();
 	    try{
 	    	PreparedStatement st = conn.prepareStatement(query);
+	    	st.setInt(1,  studente.getMatricola());
 	    	ResultSet rs = st.executeQuery();
-	    	st.setInt(1, studente.getMatricola());
 	    		while(rs.next()){
 	    			Corso c = new Corso(rs.getString("codins"), rs.getInt("crediti"), rs.getString("nome"), rs.getInt("pd"));
 	    			corsiDelloStudente.add(c);
@@ -57,5 +60,6 @@ public class StudenteDAO {
 	    }
 	
 	}
+	
 	
 }
